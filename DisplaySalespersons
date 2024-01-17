@@ -1,0 +1,42 @@
+// Function to sort an array in descending order
+function SortDescending(array) {
+   array.sort(function(a, b) {
+      return b.salesTotal - a.salesTotal;
+   });
+}
+
+// Function to display the top five salespersons
+function DisplayTopFiveSalespersons(allSalespersons) {
+   // topSales array has 5 elements
+   // Array elements have subitems for name and total sales
+   // Array will be sorted from highest total sales to lowest total sales
+   topSales = Array.from({ length: 5 }, () => ({ name: "", salesTotal: -1 }));
+
+   for (let i = 0; i < allSalespersons.length; ++i) {
+      // If salesPerson's total sales is greater than the last
+      // topSales element, salesPerson is one of the top five so far
+      if (allSalespersons[i].salesTotal > topSales[topSales.length - 1].salesTotal) {
+         // Assign the last element in topSales with the current salesperson
+         topSales[topSales.length - 1].name = allSalespersons[i].name;
+         topSales[topSales.length - 1].salesTotal = allSalespersons[i].salesTotal;
+
+         // Sort topSales in descending order
+         SortDescending(topSales);
+      }
+   }
+
+   // Display the top five salespersons
+   for (let i = 0; i < topSales.length; ++i) {
+      console.log(`Name: ${topSales[i].name}, Sales Total: ${topSales[i].salesTotal}`);
+   }
+}
+
+// Example usage:
+const allSalespersons = [
+   { name: "John", salesTotal: 1200 },
+   { name: "Alice", salesTotal: 900 },
+   { name: "Bob", salesTotal: 1500 },
+   // ... add more salespersons
+];
+
+DisplayTopFiveSalespersons(allSalespersons);
